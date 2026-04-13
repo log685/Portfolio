@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — Kavya </title>
+  <link rel="stylesheet" href="css/atlantean.css" />
+  <style>
+    .skills-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .skill-panel {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .skill-panel:hover { border-color: rgba(167,139,250,0.3); }
+    .skill-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple2), var(--purple));
+    }
+    .skill-panel-title {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 2rem;
+    }
+
+    .rings-section {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .rings-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--rose2), var(--rose), var(--purple));
+    }
+    .rings-grid {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-top: 1.5rem;
+    }
+    .ring-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .ring-svg { width: 100px; height: 100px; transform: rotate(-90deg); }
+    .ring-track { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 6; }
+    .ring-fill {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ring-fill-purple { stroke: url(#grad-purple); }
+    .ring-fill-rose   { stroke: url(#grad-rose); }
+    .ring-fill-teal   { stroke: url(#grad-teal); }
+    .ring-fill-amber  { stroke: url(#grad-amber); }
+    .ring-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) rotate(90deg);
+      font-family: var(--f-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .ring-wrap { position: relative; width: 100px; height: 100px; }
+    .ring-label { font-family: var(--f-ui); font-size: 0.8rem; font-weight: 500; color: var(--text2); text-align: center; }
+    .ring-sublabel { font-family: var(--f-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
+
+    .tools-list { list-style: none; }
+    .tools-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.9rem;
+      font-family: var(--f-ui);
+      font-weight: 400;
+      color: var(--text);
+      transition: padding-left 0.2s;
+    }
+    .tools-list li:last-child { border-bottom: none; }
+    .tools-list li:hover { padding-left: 0.4rem; color: var(--purple); }
+
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .learning-card {
+      background: rgba(12,12,28,0.5);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .learning-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .learning-card:hover {
+      border-color: rgba(167,139,250,0.25);
+      background: rgba(167,139,250,0.06);
+      transform: translateY(-3px);
+    }
+    .learning-card:hover::after { opacity: 1; }
+    .learning-icon { font-size: 2rem; margin-bottom: 0.7rem; display: block; }
+    .learning-name {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .learning-status { font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); }
+
+    .note-box {
+      background: rgba(167,139,250,0.04);
+      border: 1px solid rgba(167,139,250,0.12);
+      border-left: 2px solid var(--purple);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.3rem;
+      margin-top: 1.2rem;
+    }
+    .note-box p {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin: 0;
+      line-height: 1.7;
+      max-width: none;
+    }
+    .note-box p span { color: var(--purple); }
+
+    @media (max-width: 800px) {
+      .skills-top { grid-template-columns: 1fr; }
+      .learning-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 500px) {
+      .learning-grid { grid-template-columns: 1fr; }
+      .rings-grid { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kavya <em>Oracle</em></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html" class="active">Skills</a></li>
+        <li><a href="interests.html">Interests</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-eyebrow">Capacity Assessment</div>
+      <h1>Technical <em>Abilities</em></h1>
+      <div class="page-subtitle">Skill Vectors &amp; Mastery Levels · Grade 11 CS</div>
+    </div>
+  </div>
+
+  <main class="main-content skills-section">
+
+    <svg width="0" height="0" style="position:absolute;">
+      <defs>
+        <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7c3aed"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+        <linearGradient id="grad-rose" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#f43f5e"/>
+          <stop offset="100%" stop-color="#fb7185"/>
+        </linearGradient>
+        <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0d9488"/>
+          <stop offset="100%" stop-color="#2dd4bf"/>
+        </linearGradient>
+        <linearGradient id="grad-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d97706"/>
+          <stop offset="100%" stop-color="#fbbf24"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="container">
+
+      <div class="rings-section reveal">
+        <div class="label">Visual Overview</div>
+        <h3 style="font-family:var(--f-display);font-style:italic;font-weight:300;color:var(--text);font-size:1.4rem;">At a Glance</h3>
+        <div class="rings-grid" id="rings-container">
+        </div>
+      </div>
+
+      <div class="skills-top">
+        <!-- Code Skills -->
+        <div class="skill-panel reveal">
+          <div class="skill-panel-title">Code Competencies</div>
+
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">HTML Structure</span>
+              <span class="skill-bar-pct">90%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">CSS Theme Design</span>
+              <span class="skill-bar-pct">85%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">Responsive Layouts</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">JavaScript</span>
+              <span class="skill-bar-pct">35%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" data-width="35"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">Chemistry Fundamentals</span>
+              <span class="skill-bar-pct">75%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-panel reveal">
+          <div class="skill-panel-title">System Tools</div>
+          <ul class="tools-list">
+            <li><span>Kali Linux</span><span class="tool-level level-adv">Advanced</span></li>
+            <li><span>VS Code</span><span class="tool-level level-adv">Primary IDE</span></li>
+            <li><span>GDM3 / LightDM</span><span class="tool-level level-mid">Intermediate</span></li>
+            <li><span>Git</span><span class="tool-level level-beg">Learning</span></li>
+            <li><span>Terminal / Bash</span><span class="tool-level level-mid">Intermediate</span></li>
+            <li><span>Firefox DevTools</span><span class="tool-level level-mid">Intermediate</span></li>
+          </ul>
+          <div class="note-box">
+            <p><span>// Note</span><br>All capabilities are under constant iteration and active improvement.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning / Next -->
+      <div class="divider"></div>
+      <div class="label reveal">On the Horizon</div>
+      <h2 class="section-heading reveal">Currently <em>Learning</em></h2>
+      <div class="learning-grid">
+        <div class="learning-card reveal">
+          <span class="learning-icon">⚡</span>
+          <div class="learning-name">JavaScript</div>
+          <div class="learning-status">In Progress</div>
+        </div>
+        <div class="learning-card reveal">
+          <span class="learning-icon">🐍</span>
+          <div class="learning-name">Python</div>
+          <div class="learning-status">Queued</div>
+        </div>
+        <div class="learning-card reveal">
+          <span class="learning-icon">🗄️</span>
+          <div class="learning-name">Databases</div>
+          <div class="learning-status">Queued</div>
+        </div>
+        <div class="learning-card reveal">
+          <span class="learning-icon">🔐</span>
+          <div class="learning-name">Cybersecurity</div>
+          <div class="learning-status">Exploring</div>
+        </div>
+        <div class="learning-card reveal">
+          <span class="learning-icon">🤖</span>
+          <div class="learning-name">AI / ML Basics</div>
+          <div class="learning-status">Exploring</div>
+        </div>
+        <div class="learning-card reveal">
+          <span class="learning-icon">🌐</span>
+          <div class="learning-name">Full-Stack Dev</div>
+          <div class="learning-status">Goal</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Kavya <em>School</em></div>
+    <p>Interface by LOG</p>
+  </footer>
+
+  <script src="js/canvas-bg.js"></script>
+  <script>
+    const rings = [
+      { label:'HTML', sub:'Structure', pct:90, grad:'grad-purple' },
+      { label:'CSS',  sub:'Design',    pct:85, grad:'grad-rose'   },
+      { label:'Layouts', sub:'Responsive', pct:80, grad:'grad-teal' },
+      { label:'Chemistry', sub:'Science', pct:75, grad:'grad-amber' },
+    ];
+    const CIRC = 2 * Math.PI * 45; // r=45 → ~283
+
+    const container = document.getElementById('rings-container');
+    rings.forEach(r => {
+      container.innerHTML += `
+        <div class="ring-item reveal">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 100 100">
+              <circle class="ring-track" cx="50" cy="50" r="45"/>
+              <circle class="ring-fill ring-fill-${r.grad.replace('grad-','')}"
+                      cx="50" cy="50" r="45"
+                      stroke="url(#${r.grad})"
+                      stroke-dasharray="${CIRC.toFixed(1)}"
+                      stroke-dashoffset="${CIRC.toFixed(1)}"
+                      data-pct="${r.pct}"/>
+            </svg>
+            <div class="ring-center">${r.pct}%</div>
+          </div>
+          <div class="ring-label">${r.label}</div>
+          <div class="ring-sublabel">${r.sub}</div>
+        </div>`;
+    });
+    const ringObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.ring-fill').forEach(circle => {
+          const pct = +circle.dataset.pct;
+          const circ = +circle.getAttribute('stroke-dasharray');
+          setTimeout(() => {
+            circle.style.strokeDashoffset = circ * (1 - pct/100);
+          }, 300);
+        });
+        ringObs.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.rings-section').forEach(s => ringObs.observe(s));
+  </script>
+</body>
+</html>

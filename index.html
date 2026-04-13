@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kavya School — Home</title>
+  <link rel="stylesheet" href="css/atlantean.css" />
+  <style>
+    #hero {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+      align-items: center;
+      padding-top: 70px;
+    }
+
+    /* floating pill eyebrow */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(167,139,250,0.08);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--purple);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s 0.2s ease forwards;
+    }
+    .hero-pill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 8px var(--purple);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; box-shadow: 0 0 8px var(--purple); }
+      50% { opacity: 0.6; box-shadow: 0 0 16px var(--purple); }
+    }
+
+    .hero-name {
+      font-family: var(--f-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeSlideUp 1s 0.35s ease forwards;
+      position: relative;
+    }
+    .hero-name .outline-text {
+      display: block;
+      -webkit-text-stroke: 1px rgba(167,139,250,0.4);
+      color: transparent;
+      position: relative;
+    }
+
+    /* animated gradient text */
+    .hero-name .gradient-text {
+      background: linear-gradient(135deg, var(--purple), var(--rose), var(--teal), var(--purple));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradShift 6s ease infinite;
+      display: block;
+    }
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-role {
+      font-family: var(--f-ui);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text2);
+      margin: 1.6rem 0 1.4rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 0.55s ease forwards;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text2);
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 0.75s ease forwards;
+      line-height: 1.75;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeSlideUp 0.9s 0.9s ease forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .hero-photo-card {
+      position: relative;
+      opacity: 0;
+      animation: fadeSlideUp 1s 0.5s ease forwards;
+    } 
+    .photo-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .photo-placeholder-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 2px dashed rgba(167,139,250,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-placeholder-icon svg { width:30px; height:30px; fill:none; stroke:var(--purple); stroke-width:1.5; opacity:0.5; }
+    .photo-placeholder span {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(12,12,28,0.85);
+      backdrop-filter: var(--blur);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0;
+      animation: fadeSlideUp 0.8s 1.6s ease forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--purple), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    .scroll-hint span { font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+    #bento {
+      position: relative;
+      z-index: 10;
+      padding: 100px 2rem;
+    }
+    .bento-grid {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+
+    /* Bento cell base */
+    .bento-cell {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-cell:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-3px); }
+
+    /* Glow follow highlight */
+    .glow-follow::after {
+      content: '';
+      position: absolute;
+      left: var(--gx, 50%);
+      top: var(--gy, 50%);
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(167,139,250,0.12), transparent 70%);
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 50%;
+    }
+    .glow-follow:hover::after { opacity: 1; }
+
+    /* Grid placements */
+    .b-wide  { grid-column: span 8; }
+    .b-side  { grid-column: span 4; }
+    .b-third { grid-column: span 4; }
+    .b-full  { grid-column: span 12; }
+    .b-half  { grid-column: span 6; }
+
+    /* Cell styles */
+    .bento-label {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .bento-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .bento-title {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .bento-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.6; max-width: none; }
+    .bento-arrow {
+      position: absolute;
+      top: 1.5rem; right: 1.8rem;
+      font-size: 1.1rem;
+      color: var(--purple);
+      opacity: 0;
+      transform: translate(-4px,4px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .bento-cell:hover .bento-arrow { opacity: 1; transform: translate(0,0); }
+
+    /* Stats mini cell */
+    .stat-big {
+      font-family: var(--f-display);
+      font-size: 4rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--purple), var(--rose));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Accent bars on bento cells */
+    .bento-cell.accent-purple { border-top: 2px solid var(--purple); }
+    .bento-cell.accent-rose   { border-top: 2px solid var(--rose); }
+    .bento-cell.accent-teal   { border-top: 2px solid var(--teal); }
+
+    /* status row */
+    .status-row {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 8px var(--teal);
+      animation: pulse 2s infinite;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-photo-card { max-width: 260px; margin: 0 auto; }
+      .b-wide  { grid-column: span 12; }
+      .b-side  { grid-column: span 12; }
+      .b-third { grid-column: span 6; }
+      .b-half  { grid-column: span 12; }
+    }
+    @media (max-width: 560px) {
+      #hero { padding: 0 1.25rem; }
+      .b-third { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kavya <em>Oracle</em></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="interests.html">Interests</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+             🔥· Kavya School · Grade 11
+        </div>
+        <h1 class="hero-name">
+          <span class="outline-text">MR </span>
+          <span class="gradient-text">Aaditya Gautam</span>
+        </h1>
+        <div class="hero-role">Computer Science Student &amp; Web Developer</div>
+        <p class="hero-desc">
+          A Grade 11 student at Kavya School, Kathmandu — crafting han  d-coded interfaces at the intersection of technology and creative expression.
+        </p>
+        <div class="hero-ctas">
+          <a href="about.html" class="btn btn-purple">View Protocol →</a>
+          <a href="contact.html" class="btn btn-glass">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-card">
+        <div class="photo-frame">
+          <div class="photo-placeholder">
+            <img src="ChatGPT Image Apr 12, 2026, 11_17_37 PM.png" alt="Aaditya Gautam" />
+              
+            </div>
+           
+          </div>
+        </div>
+        <div class="photo-badge">● Available · Lalitpur, Nepal</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <section id="bento">
+    <div style="max-width:1140px;margin:0 auto 2rem;">
+      <div class="label reveal">Explore </div>
+      <h2 class="section-heading reveal">Navigate <em>My World</em></h2>
+    </div>
+
+    <div class="bento-grid">
+      <a href="about.html" class="bento-cell b-wide glow-follow tilt-card reveal" style="display:block; text-decoration:none; color:inherit;">
+        <span class="bento-arrow">↗</span>
+        <span class="bento-icon">🧬</span>
+        <div class="bento-label">Protocol Zero</div>
+        <div class="bento-title">About & Origins</div>
+        <p class="bento-desc">Grade 11 CS student building hand-crafted digital interfaces at Kavya School, Kathmandu. Pure HTML and CSS, no templates.</p>
+        <div class="flex gap-2 mt-2 flex-wrap">
+          <span class="badge badge-purple">Full-Stack Goal</span>
+          <span class="badge badge-muted">Lalitpur, Nepal</span>
+        </div>
+      </a>
+
+      <!-- STATUS — side -->
+      <div class="bento-cell b-side accent-teal reveal">
+        <div class="bento-label">Current Status</div>
+        <div class="status-row mb-2">
+          <span class="status-dot"></span>
+          Online &amp; Available
+        </div>
+        <div class="stat-big" data-count="11" data-suffix="">11</div>
+        <div style="font-family:var(--f-mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.3rem;">Grade Level</div>
+        <div class="divider" style="margin:1.2rem 0;"></div>
+        <div class="data-row">
+          <span class="data-key">HTML</span>
+          <span class="data-val text-purple">90%</span>
+        </div>
+        <div class="data-row">
+          <span class="data-key">CSS</span>
+          <span class="data-val text-rose">85%</span>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <a href="skills.html" class="bento-cell b-third glow-follow reveal" style="display:block; text-decoration:none; color:inherit;">
+        <span class="bento-arrow">↗</span>
+        <span class="bento-icon">⚡</span>
+        <div class="bento-label">Capacity Assessment</div>
+        <div class="bento-title">Skills</div>
+        <p class="bento-desc">Code competencies, system tools, and mastery levels.</p>
+      </a>
+
+      <!-- INTERESTS -->
+      <a href="interests.html" class="bento-cell b-third glow-follow reveal" style="display:block; text-decoration:none; color:inherit;">
+        <span class="bento-arrow">↗</span>
+        <span class="bento-icon">🔭</span>
+        <div class="bento-label">Observation Log</div>
+        <div class="bento-title">Interests</div>
+        <p class="bento-desc">Core curiosities, hobbies, and future inquiries.</p>
+      </a>
+
+      <!-- CONTACT -->
+      <a href="contact.html" class="bento-cell b-third glow-follow reveal accent-rose" style="display:block; text-decoration:none; color:inherit;">
+        <span class="bento-arrow">↗</span>
+        <span class="bento-icon">📡</span>
+        <div class="bento-label">Encryption Node</div>
+        <div class="bento-title">Contact</div>
+        <p class="bento-desc">Establish a secure connection and transmit a message.</p>
+      </a>
+
+      <!-- QUOTE — full width -->
+      <div class="bento-cell b-full reveal" style="text-align:center; padding: 2.5rem;">
+        <div style="font-family:var(--f-display); font-size:clamp(1.3rem,3vw,2.2rem); font-style:italic; font-weight:300; color:var(--text); line-height:1.3; max-width:700px; margin:0 auto;">
+          "The ancient mysteries are not lost — they are simply encoded in a higher language."
+        </div>
+        <div style="font-family:var(--f-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.14em; text-transform:uppercase; margin-top:1rem;">— The Atlantean Node AI</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0;"></div>
+
+  <footer>
+    <div class="footer-logo">Kavya <em>Oracle</em></div>
+    <p>Interface by 🪵 log 🪵</p>
+  </footer>
+
+  <script src="js/canvas-bg.js"></script>
+</body>
+</html>

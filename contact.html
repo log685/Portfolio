@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Kavya School</title>
+  <link rel="stylesheet" href="css/atlantean.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.7fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text2);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .contact-items { margin-bottom: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: padding-left 0.2s;
+      cursor: default;
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item:hover { padding-left: 0.3rem; }
+    .contact-item-icon {
+      font-size: 1.1rem;
+      width: 36px; height: 36px;
+      background: rgba(167,139,250,0.08);
+      border: 1px solid rgba(167,139,250,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-label {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 0.15rem;
+    }
+    .contact-item-val {
+      font-family: var(--f-ui);
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* Availability pill */
+    .avail-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(45,212,191,0.07);
+      border: 1px solid rgba(45,212,191,0.2);
+      border-radius: 100px;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .avail-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 8px var(--teal);
+      animation: pulse-teal 2s infinite;
+    }
+    @keyframes pulse-teal {
+      0%,100%{opacity:1; box-shadow:0 0 8px var(--teal);}
+      50%{opacity:0.6; box-shadow:0 0 16px var(--teal);}
+    }
+
+    .form-panel {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: 24px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple2), var(--purple), var(--rose));
+    }
+    .form-panel-title {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 2rem;
+    }
+
+    /* Two-column row */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-msg.show { display: block; }
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: bounceIn 0.6s ease;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity:0; }
+      60%{ transform: scale(1.1); }
+      100%{ transform: scale(1); opacity:1; }
+    }
+    .success-title {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+    }
+    .success-sub { font-size: 0.9rem; color: var(--text2); max-width: 36ch; margin: 0 auto; }
+
+    /* progress bar animation for send */
+    .send-progress {
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple2), var(--purple), var(--rose));
+      width: 0;
+      border-radius: 100px;
+      transition: width 1.2s ease;
+      margin-top: 1rem;
+    }
+
+    @media (max-width:800px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kavya <em>Oracle</em></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="interests.html">Interests</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-eyebrow">Encryption Node</div>
+      <h1>Establish <em>Connection</em></h1>
+      <div class="page-subtitle">Secure Communication Channel · Lalitpur, Nepal</div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- LEFT -->
+        <div class="reveal">
+          <div class="label">Transmission Details</div>
+          <p class="contact-intro">If you'd like to exchange data, discuss the Oracle's development, or simply connect — use the secure form or reach out via coordinates below.</p>
+
+          <div class="contact-items">
+            <div class="contact-item">
+              <span class="contact-item-icon">📍</span>
+              <div>
+                <div class="contact-item-label">Base Location</div>
+                <div class="contact-item-val">Lalitpur, Nepal</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">📡</span>
+              <div>
+                <div class="contact-item-label">Frequency (Email)</div>
+                <div class="contact-item-val">aadityagautam2082@email.com</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">🏫</span>
+              <div>
+                <div class="contact-item-label">Institution</div>
+                <div class="contact-item-val">Kavya School </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-icon">🎓</span>
+              <div>
+                <div class="contact-item-label">Grade Level</div>
+                <div class="contact-item-val">Grade 11 — Computer Science</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="avail-pill">
+            <span class="avail-dot"></span>
+            Available for contact
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="form-panel">
+            <div class="form-panel-title">// Data Uplink — Send a Message</div>
+
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Your Name</label>
+                  <input type="text" placeholder="Full Name" required />
+                </div>
+                <div class="form-group">
+                  <label>Return Email</label>
+                  <input type="email" placeholder="your@email.com" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <input type="text" placeholder="What is this about?" />
+              </div>
+              <div class="form-group">
+                <label>Message Payload</label>
+                <textarea placeholder="Write your transmission here..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-purple" style="width:100%; justify-content:center;" id="submit-btn">
+                Dispatch Signal →
+              </button>
+              <div class="send-progress" id="send-progress"></div>
+            </form>
+
+            <div class="success-msg" id="success-msg">
+              <span class="success-icon">✦</span>
+              <div class="success-title">Signal Dispatched</div>
+              <p class="success-sub">Your message has been transmitted successfully. I'll respond as soon as possible.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Kavya <em>Oracle</em></div>
+    <p>Interface by [🪵log🪵]  Kavya School</p>
+  </footer>
+
+  <script src="js/canvas-bg.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn  = document.getElementById('submit-btn');
+      const prog = document.getElementById('send-progress');
+      btn.textContent = 'Transmitting...';
+      btn.style.opacity = '0.7';
+      btn.style.pointerEvents = 'none';
+      // animate progress bar
+      setTimeout(() => { prog.style.width = '100%'; }, 50);
+      setTimeout(() => {
+        this.style.display = 'none';
+        prog.style.display = 'none';
+        document.getElementById('success-msg').classList.add('show');
+      }, 1400);
+    });
+  </script>
+</body>
+</html>

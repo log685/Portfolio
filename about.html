@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Kavya School</title>
+  <link rel="stylesheet" href="css/atlantean.css" />
+  <style>
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-bottom: 80px;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text2);
+      margin-bottom: 1.2rem;
+      max-width: 58ch;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    .about-photo-col { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-height: 360px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(167,139,250,0.15);
+      background: rgba(12,12,28,0.8);
+    }
+    .about-photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(4,4,14,0.6));
+      pointer-events: none;
+    }
+    .about-photo-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .photo-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem;
+      background: linear-gradient(160deg, rgba(167,139,250,0.06), rgba(251,113,133,0.04));
+    }
+    .photo-placeholder-icon {
+      width:64px; height:64px; border-radius:50%;
+      border: 2px dashed rgba(167,139,250,0.3);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .photo-placeholder-icon svg { width:28px; height:28px; fill:none; stroke:var(--purple); stroke-width:1.5; opacity:0.5; }
+    .photo-placeholder span {
+      font-family: var(--f-mono);
+      font-size: 0.62rem; letter-spacing:0.1em; text-transform:uppercase;
+      color: var(--muted); text-align:center; line-height:1.8; padding:0 1.5rem;
+    }
+    .info-card {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple2), var(--purple), var(--rose));
+    }
+    .info-card-title {
+      font-family: var(--f-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1.2rem;
+    }
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    .mission-card {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--card-b);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .mission-card:hover {
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-4px);
+    }
+    .mission-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .mission-card:hover::after { opacity: 1; }
+    .mission-num {
+      font-family: var(--f-display);
+      font-size: 3.5rem;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(167,139,250,0.12);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .mission-title {
+      font-family: var(--f-ui);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.6rem;
+    }
+    .mission-text { font-size: 0.88rem; color: var(--text2); line-height: 1.65; max-width: none; }
+
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-photo-col { flex-direction: row; align-items: flex-start; gap: 1.2rem; }
+      .about-photo-frame { width: 150px; flex-shrink: 0; }
+      .mission-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      .about-photo-col { flex-direction: column; }
+      .about-photo-frame { width: 100%; max-height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kavya <em>School</em></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="interests.html">Interests</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-eyebrow">Protocol Zero</div>
+      <h1>About <em>&amp; Origins</em></h1>
+      <div class="page-subtitle"> 🔥 · Kavya School</div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="container">
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="label">Introduction</div>
+          <p>I am a <strong>Grade 11 Computer Science student</strong> at Kavya School, Kathmandu — navigating the interface between technology and digital craft. My focus lies in the languages of the web: HTML and CSS, transforming ideas into functional, expressive digital structures.</p>
+          <p>This Oracle was forged <strong>entirely by hand</strong> as part of the CS427 research protocol. Every line of code written from scratch — a pure demonstration of core web technologies without templates or generators.</p>
+          <p>My current trajectory: evolving from a front-end craftsman into a <strong>full-stack developer</strong>, mastering JavaScript, backend systems, and the broader architecture of the modern web.</p>
+
+          <blockquote>
+            <p>"The ancient mysteries are not lost; they are simply encoded in a higher language."</p>
+            <cite>— The Atlantean Node AI</cite>
+          </blockquote>
+
+          <div class="flex gap-2 flex-wrap mt-2">
+            <a href="skills.html" class="btn btn-purple">View Abilities</a>
+            <a href="contact.html" class="btn btn-glass">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="about-photo-col reveal">
+          <div class="about-photo-frame">
+            <div class="photo-placeholder">
+                <img src="2133.jpg" alt="[Aaditya Gautam]" /> 
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="data-row">
+              <span class="data-key">name</span>
+              <span class="data-val">Aaditya Gautam</span>
+            </div>
+            <div class="data-row">
+              <span class="data-key">grade</span>
+              <span class="data-val">Grade 11 </span>
+            </div>
+            <div class="data-row">
+              <span class="data-key">school</span>
+              <span class="data-val">Kavya School</span>
+            </div>
+            <div class="data-row">
+              <span class="data-key">location</span>
+              <span class="data-val">Lalitpur, Nepal</span>
+            </div>
+            <div class="data-row">
+              <span class="data-key">email</span>
+              <span class="data-val">aadityagautam2082@gmail.com</span>
+            </div>
+            <div class="data-row">
+              <span class="data-key">status</span>
+              <span class="data-val text-teal">● Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISSION -->
+      <div class="divider"></div>
+      <div class="label reveal">The Protocol Mission</div>
+      <h2 class="section-heading reveal">What Drives <em>This School</em></h2>
+
+      <div class="mission-grid">
+        <div class="mission-card reveal">
+          <div class="mission-num">01</div>
+          <div class="mission-title">Initiation</div>
+          <p class="mission-text">Building core skills in web data languages and digital layout — transforming raw code into functional, expressive structures.</p>
+        </div>
+        <div class="mission-card reveal">
+          <div class="mission-num">02</div>
+          <div class="mission-title">Focus</div>
+          <p class="mission-text">Creating functional digital structures using only the core codes of the Oracle interface: pure HTML and CSS, hand-crafted.</p>
+        </div>
+        <div class="mission-card reveal">
+          <div class="mission-num">03</div>
+          <div class="mission-title">Evolution</div>
+          <p class="mission-text">Evolving toward full-stack development — mastering JavaScript, backend systems, and data architecture for the modern web.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">Kavya <em>SChool</em></div>
+    <p>Interface by [🪵log🪵]  Kavya School </p>
+  </footer>
+
+  <script src="js/canvas-bg.js"></script>
+</body>
+</html>
